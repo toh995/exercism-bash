@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+hamming() {
+  local str1="${1}"
+  local str2="${2}"
+  local -i ret=0
+
+  # double-check lengths
+  if [[ ${#str1} != ${#str2} ]]; then
+    echo "The two provided strings have different lengths! Aborting."
+    exit 1;
+  fi
+
+  for (( i=0; i<"${#str1}"; i++ )); do
+    local char1="${str1:$i:1}"
+    local char2="${str2:$i:1}"
+
+    if [[ "${char1}" != "${char2}" ]]; then
+      ret=$((ret+1))
+    fi
+  done
+
+  echo "${ret}"
+}
+hamming $@
