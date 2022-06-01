@@ -17,6 +17,5 @@ is_armstrong_number() {
   else
     echo "false"
   fi
-
 }
 is_armstrong_number $@
