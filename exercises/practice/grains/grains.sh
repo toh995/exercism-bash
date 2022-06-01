@@ -1,24 +1,28 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+compute_total() {
+  # Using the formula for the first n terms of a geometric series
+  # https://en.wikipedia.org/wiki/Geometric_series#Closed-form_formula 
+  bc <<< "(1 - 2^64) / (1 - 2)"
+}
+
+compute_square() {
+  declare -ir exponent=$(( "${1}" - 1 ))
+
+  if (( "${exponent}" < 0 )) || (( "${exponent}" > 63 )); then
+    echo "Error: invalid input"
+    return 1
+  fi
+
+  bc <<< "2 ^ ${exponent}"
+}
+
+
+main() {
+  if [[ "${1}" == "total" ]]; then
+    compute_total "${1}"
+  else
+    compute_square "${1}"
+  fi
+}
+main "${@}"
