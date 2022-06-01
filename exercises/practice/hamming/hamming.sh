@@ -1,25 +1,33 @@
 #!/usr/bin/env bash
 
-hamming() {
-  local str1="${1}"
-  local str2="${2}"
-  local -i ret=0
+# check if we were given two inputs
+if [[ -z "${1+x}" ]] || [[ -z "${2+x}" ]]; then
+  echo "Usage: hamming.sh <string1> <string2>"
+  exit 1
+fi
 
-  # double-check lengths
-  if [[ ${#str1} != ${#str2} ]]; then
-    echo "The two provided strings have different lengths! Aborting."
-    exit 1;
+# double-check lengths
+if [[ "${#1}" != "${#2}" ]]; then
+  echo "strands must be of equal length"
+  exit 1
+fi
+
+# now let's compute!
+readonly str1="${1}"
+readonly str2="${2}"
+
+declare -i ret=0
+declare -i i
+declare char1
+declare char2
+
+for (( i=0; i<"${#str1}"; i++ )); do
+  char1="${str1:$i:1}"
+  char2="${str2:$i:1}"
+
+  if [[ "${char1}" != "${char2}" ]]; then
+    ret=$((ret+1))
   fi
+done
 
-  for (( i=0; i<"${#str1}"; i++ )); do
-    local char1="${str1:$i:1}"
-    local char2="${str2:$i:1}"
-
-    if [[ "${char1}" != "${char2}" ]]; then
-      ret=$((ret+1))
-    fi
-  done
-
-  echo "${ret}"
-}
-hamming $@
+echo "${ret}"
