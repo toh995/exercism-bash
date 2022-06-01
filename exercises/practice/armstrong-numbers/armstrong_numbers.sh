@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+is_armstrong_number() {
+  local -i num="${1}"
+  local -i num_length="${#num}"
+  local -i compare_val=0
+  local -i curr_digit
+  local -i i=0
+
+  for ((i=0; i < "${#num}"; i++)); do
+    curr_digit="${num:i:1}"
+    let compare_val+=$(("${curr_digit}" ** "${#num}"))
+  done
+
+  if (( "${compare_val}" == "${num}" )); then
+    echo "true"
+  else
+    echo "false"
+  fi
+
+}
+is_armstrong_number $@
