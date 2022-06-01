@@ -1,24 +1,44 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+declare -Ar SCRABBLE_DICT=(
+  [A]=1
+  [E]=1
+  [I]=1
+  [O]=1
+  [U]=1
+  [L]=1
+  [N]=1
+  [R]=1
+  [S]=1
+  [T]=1
+  [D]=2
+  [G]=2
+  [B]=3
+  [C]=3
+  [M]=3
+  [P]=3
+  [F]=4
+  [H]=4
+  [V]=4
+  [W]=4
+  [Y]=4
+  [K]=5
+  [J]=8
+  [X]=8
+  [Q]=10
+  [Z]=10
+)
+
+main() {
+  # uppercase the input word
+  local -r word="$(echo "${1}" | tr "a-z" "A-Z")"
+  local -i ret=0
+  local -i i
+
+  for ((i=0; i < "${#word}"; i++)); do
+    let ret+="${SCRABBLE_DICT["${word:i:1}"]}"
+  done
+
+  echo "${ret}"
+}
+main "${@}"

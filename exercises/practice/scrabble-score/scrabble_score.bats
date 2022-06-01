@@ -12,7 +12,7 @@ load bats-extra
 }
 
 @test 'uppercase letter' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'A'
   
   assert_success
@@ -20,7 +20,7 @@ load bats-extra
 }
 
 @test 'valuable letter' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'f'
   
   assert_success
@@ -28,7 +28,7 @@ load bats-extra
 }
 
 @test 'short word' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'at'
   
   assert_success
@@ -36,7 +36,7 @@ load bats-extra
 }
 
 @test 'short, valuable word' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'zoo'
   
   assert_success
@@ -44,7 +44,7 @@ load bats-extra
 }
 
 @test 'medium word' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'street'
   
   assert_success
@@ -52,7 +52,7 @@ load bats-extra
 }
 
 @test 'medium, valuable word' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'quirky'
   
   assert_success
@@ -60,7 +60,7 @@ load bats-extra
 }
 
 @test 'long, mixed-case word' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'OxyphenButazone'
   
   assert_success
@@ -68,7 +68,7 @@ load bats-extra
 }
 
 @test 'english-like word' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'pinata'
   
   assert_success
@@ -76,7 +76,7 @@ load bats-extra
 }
 
 @test 'empty input' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh ''
   
   assert_success
@@ -84,7 +84,7 @@ load bats-extra
 }
 
 @test 'entire alphabet available' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash scrabble_score.sh 'abcdefghijklmnopqrstuvwxyz'
   
   assert_success
