@@ -1,24 +1,32 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+main() {
+  local -ir upper_bound="${1}"
+  local -a composites=()
+  local -a primes=()
+
+  local -i i factor next_multiple
+
+  # for i in {2.."${upper_bound}"}; do
+  for (( i=2; i <= "${upper_bound}"; i++ )); do
+    if [[ -z "${composites["${i}"]}" ]]; then
+      primes+=( "${i}" )
+    fi
+
+    # now check all multiples of $i
+    factor="${i}"
+    while true; do
+      next_multiple="$(("${factor}" * "${i}"))"
+      if (( "${next_multiple}" <= "${upper_bound}" )); then
+        composites["${next_multiple}"]="true"
+        let factor+=1
+      else
+        break
+      fi
+    done
+  done
+
+  echo "${primes[@]}"
+}
+
+main "${@}"
