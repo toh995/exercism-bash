@@ -1,24 +1,18 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+main() {
+  local ret=""
+  local -i i j
+
+  for (( i=2; i <= "${#}"; i++ )); do
+    j="$(( i-1 ))"
+    ret+="For want of a ${!j} the ${!i} was lost.\n"
+  done
+
+  [[ -n "${1}" ]] && \
+    ret+="And all for the want of a ${1}."
+
+  echo -e "${ret}"
+}
+
+main "${@}"
