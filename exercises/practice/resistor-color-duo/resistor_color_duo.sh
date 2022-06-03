@@ -15,15 +15,15 @@ readonly -A COLOR_DICT=(
 
 
 main() {
-  readonly color1="${1}"
-  readonly color2="${2}"
+  local -r color1="${1}"
+  local -r color2="${2}"
   if [[ -z "${color1}" || -z "${color2}" ]]; then
     echo "invalid color"
     exit 1
   fi
 
-  readonly val1="${COLOR_DICT["${color1}"]}"
-  readonly val2="${COLOR_DICT["${color2}"]}"
+  local -ir val1="${COLOR_DICT["${color1}"]}"
+  local -ir val2="${COLOR_DICT["${color2}"]}"
 
   if [[ "${val1}" == 0 ]]; then
     echo "${val2}"
