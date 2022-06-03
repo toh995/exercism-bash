@@ -1,24 +1,73 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+is_beginning_char() {
+  local -r char="${1}"
+
+  case "${char}" in
+    "[" | "{" | "(")
+      return 0
+      ;;
+    *)
+      return 1
+  esac
+}
+
+is_end_char() {
+  local -r char="${1}"
+
+  case "${char}" in
+    "]" | "}" | ")")
+      return 0
+      ;;
+    *)
+      return 1
+  esac
+}
+
+chars_match() {
+  if [[ "${1}" == "[" && "${2}" == "]" ]] || \
+    [[ "${1}" == "{" && "${2}" == "}" ]] || \
+    [[ "${1}" == "(" && "${2}" == ")" ]]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+main() {
+  local -r input="${1}"
+  local -a stack=()
+  local ret="true"
+  local -i i
+  local char
+  local old_char
+
+  for (( i=0; i < "${#input}"; i++ )); do
+    char="${input:i:1}"
+
+    if is_beginning_char "${char}"; then
+      stack+=( "${char}" )
+      continue
+    elif is_end_char "${char}"; then
+      if (( "${#stack[@]}" <= 0 )); then
+        ret="false"
+        break
+      fi
+
+      old_char="${stack[-1]}"
+      unset stack[-1]
+
+      if ! (chars_match "${old_char}" "${char}"); then
+        ret="false"
+        break
+      fi
+    fi
+  done
+
+  (( "${#stack[@]}" > 0 )) && \
+    ret="false"
+
+  echo "${ret}"
+}
+main "${@}"
